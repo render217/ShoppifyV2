@@ -18,12 +18,12 @@ exports.loginUser = async (req, res) => {
 
     const foundUser = await User.findOne({ email });
     if (!foundUser) {
-        throw new ApiError(400, "Invalid Credential..(no-user)");
+        throw new ApiError(400, "Invalid Credential.");
     }
 
     const validPassword = verifyPassword(password, foundUser.password);
     if (!validPassword) {
-        throw new ApiError(403, "Invalid Credentials...(incorrect-password)");
+        throw new ApiError(403, "Invalid Credentials.");
     }
     foundUser.password = undefined;
     foundUser.__v = undefined;

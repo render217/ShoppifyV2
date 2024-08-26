@@ -12,7 +12,7 @@ exports.checkAuth = async (req, res, next) => {
     const token = req.headers.authorization?.replace("Bearer ", "");
     // console.log("token:", token.substring(0, 5), "...");
     if (!token) {
-        next(new ApiError(401, "Unauthorized...notoken"));
+        next(new ApiError(401, "Unauthorized."));
     }
     try {
         const decoded = jsonwebtoken.verify(token, process.env.JWT_SECRET);
@@ -24,8 +24,6 @@ exports.checkAuth = async (req, res, next) => {
         next();
     } catch (error) {
         console.log("ERROR", error.message);
-        next(
-            new ApiError(401, error?.message || "Unauthorized...(invalidToken)")
-        );
+        next(new ApiError(401, error?.message || "Unauthorized."));
     }
 };

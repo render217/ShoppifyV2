@@ -1,5 +1,6 @@
 import HistoryList from "./components/HistoryList";
 import { useGetCartHistory } from "../../lib/react-query/queries";
+import ErrorPage from "../../components/ErrorPage";
 
 export default function History() {
   const {
@@ -13,9 +14,7 @@ export default function History() {
   if (isCartHistoryError) {
     return (
       <>
-        <div>
-          <p>Something went wrong</p>
-        </div>
+        <ErrorPage />
       </>
     );
   }

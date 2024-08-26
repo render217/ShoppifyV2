@@ -11,6 +11,7 @@ import { useGetCartHistoryById } from "../../../lib/react-query/queries";
 import { customDateFormat } from "../../../utils";
 import HistoryProductList from "./HistoryProductList";
 import FullSpinner from "../../../components/Spinner/FullSpinner";
+import ErrorPage from "../../../components/ErrorPage";
 
 export default function HistoryDetail() {
   const navigate = useNavigate();
@@ -34,9 +35,7 @@ export default function HistoryDetail() {
   if (isCartHistoryError) {
     return (
       <>
-        <div>
-          <p>Something went wrong</p>
-        </div>
+        <ErrorPage />
       </>
     );
   }

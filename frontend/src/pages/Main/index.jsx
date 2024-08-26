@@ -14,8 +14,8 @@ export default function Main() {
   if (isProductsError) {
     return (
       <>
-        <div>
-          <p>Something went wrong</p>
+        <div className="size-full px-2">
+          <h3 className="py-10 text-center text-3xl">Something went wrong</h3>
         </div>
       </>
     );
