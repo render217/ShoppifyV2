@@ -1,5 +1,5 @@
 require("express-async-errors");
-
+require("dotenv").config({ path: "./src/config/.env" });
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -15,6 +15,7 @@ const corsOption = {
         "http://localhost:5174",
         "http://localhost:5173",
         "http://localhost:4173",
+        process.env.FRONTEND_URL,
     ],
     credentials: true,
 };
@@ -23,6 +24,7 @@ app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
+
 // routes
 app.use("/api/v1/products", productsRoute);
 app.use("/api/v1/cart", cartRoute);

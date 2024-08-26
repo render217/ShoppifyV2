@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-const BASE_URL = "http://localhost:3500/api/v1";
+// const BASE_URL = "http://localhost:3500/api/v1";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 const httpClient = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,

@@ -1,9 +1,10 @@
 const faker = require("@faker-js/faker").faker;
 const { default: mongoose } = require("mongoose");
+require("dotenv").config({ path: "./src/config/.env" });
 const Product = require("../model/product.model");
 const fs = require("fs");
 
-const data = fs.readFileSync("product.json", "utf-8");
+const data = fs.readFileSync("./src/seed/product.json", "utf-8");
 
 const seedProducts = async () => {
     try {
@@ -14,15 +15,13 @@ const seedProducts = async () => {
         const products = await Product.insertMany(JSON.parse(data));
         console.log(products);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 };
 
 const connectDB = async () => {
     try {
-        const con = await mongoose.connect(
-            "mongodb://127.0.0.1:27017/shoppify"
-        );
+        const con = await mongoose.connect(process.env.MONGODB_URI);
         console.log("successfully connected");
         return con;
     } catch (error) {
@@ -31,6 +30,9 @@ const connectDB = async () => {
     }
 };
 
-connectDB().then(async () => {
-   await seedProducts();
-}).catch(err=>console.log(err))
+connectDB()
+    .then(async () => {
+        await seedProducts();
+        console.log("successfully seed products");
+    })
+    .catch((err) => console.log(err));
