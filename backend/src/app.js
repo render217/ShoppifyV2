@@ -26,13 +26,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
 // routes
-app.use("/", (req, res) => {
-    res.send("Shoppify API Ok.");
-});
+
 app.use("/api/v1/products", productsRoute);
 app.use("/api/v1/cart", cartRoute);
 app.use("/api/v1/user", userRoute);
 
+app.use("/", (req, res) => {
+    res.send("Shoppify API Ok.");
+});
 //
 app.use("*", notFound);
 app.use(errorHandler);

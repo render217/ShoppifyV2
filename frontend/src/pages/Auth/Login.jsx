@@ -37,12 +37,12 @@ export default function Login() {
       const {
         data: { payload },
       } = await loginUser(formData);
-
+      console.log({ payload });
       // set the logged in user
       setUser({
-        email: payload.user.email,
-        username: payload.user.username,
-        _id: payload.user._id,
+        email: payload?.user?.email,
+        username: payload?.user?.username,
+        _id: payload?.user?._id,
       });
 
       setIsAuthenticated(true);
@@ -55,6 +55,7 @@ export default function Login() {
       toast.success(payload?.message);
       navigate("/", { replace: true });
     } catch (error) {
+      console.log({ error });
       if (error?.response?.data?.errors.length > 0) {
         let errors = error?.response?.data?.errors;
         errors.forEach((err) => {

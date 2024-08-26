@@ -3,7 +3,7 @@ import { formatProductsResult } from "../../../utils";
 import ProductItem from "./ProductItem";
 
 export default function ProductList({ products, searchText }) {
-  const formatedProducts = products.length
+  const formatedProducts = products?.length
     ? formatProductsResult(
         products.filter((product) => product.name.includes(searchText))
       )
