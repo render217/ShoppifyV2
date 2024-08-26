@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import HistoryCard from "./HIstoryCard";
+import HistoryCard from "./HistoryCard";
 
 export default function HistoryList({ cartHistoryList }) {
   if (!cartHistoryList || cartHistoryList.length === 0) {
