@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { useLoginUser } from "../../lib/react-query/queries";
 import { twMerge } from "tailwind-merge";
+import { LoaderCircle } from "lucide-react";
 export default function Login() {
   const { setIsAuthenticated, setUser } = useAuth();
   const navigate = useNavigate();
@@ -88,7 +89,8 @@ export default function Login() {
                 Email
               </label>
               <input
-                className="w-full rounded-md border border-clrGranite px-2 py-2 text-sm outline-clrOrangePeel"
+                disabled={isLogging}
+                className="disabled: w-full rounded-md border border-clrGranite px-2 py-2 text-sm outline-clrOrangePeel disabled:border-clrGranite/40 disabled:bg-slate-100"
                 type="text"
                 onChange={inputChangeHandler("email")}
                 autoComplete="off"
@@ -99,7 +101,8 @@ export default function Login() {
                 Password
               </label>
               <input
-                className="w-full rounded-md border border-clrGranite px-2 py-2 text-sm outline-clrOrangePeel"
+                disabled={isLogging}
+                className="w-full rounded-md border border-clrGranite px-2 py-2 text-sm outline-clrOrangePeel disabled:border-clrGranite/40 disabled:bg-slate-100"
                 type="password"
                 onChange={inputChangeHandler("password")}
                 id="password"
@@ -109,14 +112,13 @@ export default function Login() {
             <button
               disabled={isLogging}
               className={twMerge(
-                `${
-                  isLogging
-                    ? "cursor-not-allowed bg-clrGranite"
-                    : "bg-clrOrangePeel  hover:bg-clrOrangePeel/80"
-                }`,
-                "mb-2 mt-4 block w-full rounded-md  px-2 py-2 text-sm text-white"
+                "mb-2 mt-4 block w-full rounded-md bg-clrOrangePeel  px-2 py-2 text-sm text-white disabled:cursor-not-allowed disabled:bg-clrOrangePeel disabled:opacity-60"
               )}>
-              {isLogging ? "Logging..." : "Login"}
+              {isLogging ? (
+                <LoaderCircle className="mx-auto h-5 w-5 animate-spin" />
+              ) : (
+                "Login"
+              )}
             </button>
             <small>
               Not Registered yet ?

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { LoaderCircle } from "lucide-react";
 // import { registerUser } from "../../lib/api";
 import { useRegisterUser } from "../../lib/react-query/queries";
 import { twMerge } from "tailwind-merge";
@@ -65,7 +66,8 @@ export default function Register() {
                 Email
               </label>
               <input
-                className="w-full rounded-md border border-clrGranite px-2 py-2 text-sm outline-clrOrangePeel"
+                disabled={isRegistering}
+                className="w-full rounded-md border border-clrGranite px-2 py-2 text-sm outline-clrOrangePeel disabled:border-clrGranite/40 disabled:bg-slate-100"
                 type="text"
                 onChange={inputChangeHandler("email")}
                 autoComplete="off"
@@ -76,7 +78,8 @@ export default function Register() {
                 Username
               </label>
               <input
-                className="w-full rounded-md border border-clrGranite px-2 py-2 text-sm outline-clrOrangePeel"
+                disabled={isRegistering}
+                className="w-full rounded-md border border-clrGranite px-2 py-2 text-sm outline-clrOrangePeel disabled:border-clrGranite/40 disabled:bg-slate-100"
                 type="text"
                 onChange={inputChangeHandler("username")}
                 id="username"
@@ -88,7 +91,8 @@ export default function Register() {
                 Password
               </label>
               <input
-                className="w-full rounded-md border border-clrGranite px-2 py-2 text-sm outline-clrOrangePeel"
+                disabled={isRegistering}
+                className="w-full rounded-md border border-clrGranite px-2 py-2 text-sm outline-clrOrangePeel disabled:border-clrGranite/40 disabled:bg-slate-100"
                 type="password"
                 onChange={inputChangeHandler("password")}
                 id="password"
@@ -98,14 +102,13 @@ export default function Register() {
             <button
               disabled={isRegistering}
               className={twMerge(
-                `${
-                  isRegistering
-                    ? "cursor-not-allowed bg-clrGranite"
-                    : "bg-clrOrangePeel  hover:bg-clrOrangePeel/80"
-                }`,
-                "mb-2 mt-4 block w-full rounded-md  px-2 py-2 text-sm text-white"
+                "mb-2 mt-4 block w-full rounded-md bg-clrOrangePeel px-2 py-2 text-sm  text-white hover:bg-clrOrangePeel/80 disabled:cursor-not-allowed disabled:bg-clrOrangePeel disabled:opacity-60"
               )}>
-              {isRegistering ? "Registering..." : "Register"}
+              {isRegistering ? (
+                <LoaderCircle className="mx-auto h-5 w-5 animate-spin" />
+              ) : (
+                "Register"
+              )}
             </button>
             <small>
               Already registered ?
