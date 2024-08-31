@@ -1,6 +1,7 @@
 import HistoryList from "./components/HistoryList";
 import { useGetCartHistory } from "../../lib/react-query/queries";
 import ErrorPage from "../../components/ErrorPage";
+import { LoaderCircle } from "lucide-react";
 
 export default function History() {
   const {
@@ -19,14 +20,18 @@ export default function History() {
     );
   }
   return (
-    <section className="pb-20">
+    <section className="size-full pb-20">
       <header className="px-6 py-5">
         <h1 className=" text-2xl font-medium leading-tight lg:text-3xl ">
           <span className="font-semibold ">Shopping history</span>
         </h1>
       </header>
-      <main className="px-6 max-xs:px-4">
-        {isCartHistoryLoading && <p className="text-center">Loading...</p>}
+      <main className="size-full px-6 max-xs:px-4">
+        {isCartHistoryLoading && (
+          <div className="grid h-[calc(100vh-400px)] place-content-center">
+            <LoaderCircle className="mx-auto animate-spin text-clrOrangePeel" />
+          </div>
+        )}
 
         {!isCartHistoryLoading && (
           <HistoryList cartHistoryList={cartHistoryList} />

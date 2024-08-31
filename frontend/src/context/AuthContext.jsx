@@ -52,7 +52,7 @@ export default function AuthProvider({ children }) {
     }
   };
   const logoutUser = () => {
-    Cookies.remove("token");
+    Cookies.remove("sh_token");
     setUser(INITIAL_USER);
     setIsAuthenticated(false);
   };

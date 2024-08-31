@@ -88,7 +88,7 @@ export const formatCartProductsResult = (products) => {
 export const formatCartItems = (cartItems = []) => {
   let arr = [];
   cartItems.forEach((category) => {
-    console.log(category.categoryName);
+    // console.log(category.categoryName);
     category.products.forEach((product) => {
       arr.push({ product: product._id, quantity: product.quantity });
     });

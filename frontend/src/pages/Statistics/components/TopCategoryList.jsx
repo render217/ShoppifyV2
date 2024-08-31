@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { LoaderCircle } from "lucide-react";
+
 export default function TopCategoryList({
   topCategoryList,
   totalQuantity,
@@ -26,7 +28,7 @@ export default function TopCategoryList({
         {isLoading && (
           <>
             <div className="grid h-[100px] place-content-center">
-              <p>Loading...</p>
+              <LoaderCircle className="animate-spin text-clrOrangePeel" />
             </div>
           </>
         )}

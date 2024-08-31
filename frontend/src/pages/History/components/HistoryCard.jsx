@@ -12,7 +12,7 @@ export default function HistoryCard({ item }) {
   return (
     <div key={item._id} className="flex bg-white  px-2 py-3  shadow-custom ">
       <Link to={`/history/${item?._id || 2}`} className="w-32 font-semibold">
-        {item.name || "Biruktie Birthday"}
+        {item.name}
       </Link>
 
       <div className="ml-auto flex items-center gap-4 text-xs text-clrSliverSand">

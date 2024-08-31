@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useUIStore from "../../../store/uiStore";
 import useCartStore from "../../../store/cartStore";
 import { formatCartItems } from "../../../utils";
-
+import { LoaderCircle } from "lucide-react";
 import { toast } from "react-toastify";
 import { useCreateCart } from "../../../lib/react-query/queries";
 import { twMerge } from "tailwind-merge";
@@ -86,7 +86,7 @@ export function CartFooter() {
       setCartName("");
       // setUpdatedCartName("");
     } catch (error) {
-      console.log(error?.response?.data);
+      // console.log(error?.response?.data);
 
       toast.error(error?.response?.data?.message);
     }
@@ -110,7 +110,7 @@ export function CartFooter() {
       setCartName("");
       // setUpdatedCartName("");
     } catch (error) {
-      console.log(error?.response?.data);
+      // console.log(error?.response?.data);
       if (error?.response?.data?.errors.length > 0) {
         let errors = error?.response?.data?.errors;
         errors.forEach((err) => {
@@ -143,18 +143,22 @@ export function CartFooter() {
         {isCartToBeSubmit && cartProducts.length > 0 && (
           <div className="mt-auto flex justify-center gap-5">
             <button
+              disabled={isLoadingCreate}
               onClick={openModal}
-              className="w-24 rounded-2xl border-2 py-3">
+              className="w-24 rounded-2xl border-2 py-3 disabled:cursor-not-allowed disabled:opacity-60">
               Cancel
             </button>
             <button
               onClick={handleSubmitCart}
               disabled={isLoadingCreate}
               className={twMerge(
-                `${isLoadingCreate ? "bg-clrGranite" : "bg-clrMalibu"}`,
-                "w-24 rounded-2xl border-2  py-3 text-white"
+                "w-24 rounded-2xl border-2  bg-clrMalibu py-3 text-white disabled:cursor-not-allowed disabled:opacity-60"
               )}>
-              {isLoadingCreate ? "Wait..." : "Complete"}
+              {isLoadingCreate ? (
+                <LoaderCircle className="mx-auto animate-spin" />
+              ) : (
+                <p>Complete</p>
+              )}
             </button>
           </div>
         )}

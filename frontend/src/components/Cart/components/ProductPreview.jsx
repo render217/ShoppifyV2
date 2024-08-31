@@ -6,7 +6,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { toast } from "react-toastify";
 import { useDeleteProduct } from "../../../lib/react-query/queries";
 // import { useEffect, useState } from "react";
-
+import { LoaderCircle } from "lucide-react";
 export function ProductPreview() {
   const { user } = useAuth();
   const { mutateAsync: deleteProduct, isPending: isLoadingDelete } =
@@ -31,7 +31,7 @@ export function ProductPreview() {
     }
   };
 
-  // const DEFAULT_IMAGE = "./defaultImage.avif";
+  const DEFAULT_IMAGE = "./defaultImage.avif";
   return (
     <div className="mx-3 flex h-full flex-col  overflow-hidden">
       <div onClick={onBack} className=" flex cursor-pointer items-center gap-2">
@@ -43,7 +43,7 @@ export function ProductPreview() {
           <img
             className="h-full w-full object-cover"
             // src={imageLoaded ? product?.image : DEFAULT_IMAGE}
-            src={product?.image}
+            src={product?.image ? product?.image : DEFAULT_IMAGE}
             alt="product image"
             // onLoad={() => {
             //   setImageLoaded(true);
@@ -80,13 +80,18 @@ export function ProductPreview() {
             <button
               disabled={isLoadingDelete}
               onClick={handleDeleteProduct}
-              className="w-28 rounded-2xl border-2 border-clrValentineRed py-3 font-semibold text-clrValentineRed duration-300 hover:bg-clrValentineRed hover:text-white">
-              {isLoadingDelete ? "Deleting..." : "Delete"}
+              className="w-28 rounded-2xl border-2 border-clrValentineRed py-3 font-semibold text-clrValentineRed duration-300 hover:bg-clrValentineRed hover:text-white disabled:cursor-not-allowed disabled:bg-clrValentineRed disabled:text-white disabled:opacity-60">
+              {isLoadingDelete ? (
+                <LoaderCircle className="mx-auto animate-spin" />
+              ) : (
+                "Delete"
+              )}
             </button>
           )}
           <button
+            disabled={isLoadingDelete}
             onClick={handleAddToCart}
-            className="w-28  rounded-2xl border-2 bg-clrOrangePeel py-3 text-white">
+            className="w-28  rounded-2xl border-2 bg-clrOrangePeel py-3 text-white disabled:cursor-not-allowed disabled:opacity-60">
             Add to List
           </button>
         </div>

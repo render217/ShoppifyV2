@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useUIStore from "../../../store/uiStore";
-
+import { LoaderCircle } from "lucide-react";
 import { toast } from "react-toastify";
 import { useCreateProduct } from "../../../lib/react-query/queries";
 import { twMerge } from "tailwind-merge";
@@ -30,6 +30,7 @@ export const AddProductForm = () => {
   // handler
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    if (isLoadingCreate) return;
     try {
       if (formData.category === "custom" && customCategory === "") {
         toast.error("category is Required");
@@ -73,6 +74,7 @@ export const AddProductForm = () => {
             Name
           </label>
           <input
+            disabled={isLoadingCreate}
             className="w-full rounded-xl border-2 border-clrCottonSeed px-2 py-2 text-sm focus:outline-clrOrangePeel"
             onChange={inputChangeHandler("name")}
             value={formData.name}
@@ -88,6 +90,7 @@ export const AddProductForm = () => {
             Note (optional)
           </label>
           <textarea
+            disabled={isLoadingCreate}
             className="w-full resize-none  rounded-xl border-2 border-clrCottonSeed px-2 py-3 text-sm focus:outline-clrOrangePeel"
             onChange={inputChangeHandler("description")}
             value={formData.description}
@@ -102,6 +105,7 @@ export const AddProductForm = () => {
             Image url (optional){" "}
           </label>
           <input
+            disabled={isLoadingCreate}
             onChange={inputChangeHandler("image")}
             value={formData.image}
             autoComplete="off"
@@ -118,7 +122,7 @@ export const AddProductForm = () => {
           </label>
           {/* CUSTOM ADD LOGIC REMAINING */}
           <select
-            disabled={formData.category === "custom"}
+            disabled={formData.category === "custom" || isLoadingCreate}
             onChange={inputChangeHandler("category")}
             value={formData.category}
             className="w-full rounded-xl  border-2 border-clrCottonSeed px-2 py-2 text-sm focus:outline-clrOrangePeel"
@@ -136,6 +140,7 @@ export const AddProductForm = () => {
         {formData.category === "custom" && (
           <div className="relative">
             <input
+              disabled={isLoadingCreate}
               onChange={(e) => setCustomCategory(e.target.value)}
               value={customCategory}
               autoComplete="off"
@@ -153,22 +158,22 @@ export const AddProductForm = () => {
         <div className="mt-auto flex justify-center gap-5">
           <button
             type="button"
+            disabled={isLoadingCreate}
             onClick={onCancel}
-            className="w-24 rounded-2xl border-2 py-3">
+            className="w-24 rounded-2xl border-2 py-3 disabled:cursor-not-allowed disabled:opacity-60">
             Cancel
           </button>
           <button
             type="submit"
             disabled={isLoadingCreate}
             className={twMerge(
-              `${
-                isLoadingCreate
-                  ? "cursor-not-allowed bg-clrGranite"
-                  : "bg-clrOrangePeel"
-              }`,
-              "w-24 rounded-2xl border-2  py-3 text-white"
+              "w-24 rounded-2xl border-2  bg-clrOrangePeel py-3 text-white disabled:cursor-not-allowed disabled:opacity-60"
             )}>
-            Save
+            {isLoadingCreate ? (
+              <LoaderCircle className="mx-auto animate-spin" />
+            ) : (
+              <p>Save</p>
+            )}
           </button>
         </div>
       </form>

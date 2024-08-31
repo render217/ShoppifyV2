@@ -29,7 +29,7 @@ export default function HistoryDetail() {
     navigate(-1);
   };
 
-  if (isCartHistoryLoading) {
+  if (!isCartHistoryLoading) {
     return <FullSpinner />;
   }
   if (isCartHistoryError) {

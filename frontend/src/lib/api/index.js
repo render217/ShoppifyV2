@@ -10,7 +10,7 @@ const httpClient = axios.create({
 // intercept the request and add jwtToken
 httpClient.interceptors.request.use(
   function (config) {
-    const token = Cookies.get("token") || null;
+    const token = Cookies.get("sh_token") || null;
     config.headers.Authorization = `Bearer ${token}`;
     return config;
   },

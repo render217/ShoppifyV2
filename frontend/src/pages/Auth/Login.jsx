@@ -37,7 +37,7 @@ export default function Login() {
       const {
         data: { payload },
       } = await loginUser(formData);
-      console.log({ payload });
+      // console.log({ payload });
       // set the logged in user
       setUser({
         email: payload?.user?.email,
@@ -49,13 +49,13 @@ export default function Login() {
 
       // save the token to cookie
       let token = payload.token;
-      Cookies.set("token", token, { expires: 7 });
+      Cookies.set("sh_token", token, { expires: 7 });
 
       // show toast and navigate to home page
       toast.success(payload?.message);
       navigate("/", { replace: true });
     } catch (error) {
-      console.log({ error });
+      // console.log({ error });
       if (error?.response?.data?.errors.length > 0) {
         let errors = error?.response?.data?.errors;
         errors.forEach((err) => {

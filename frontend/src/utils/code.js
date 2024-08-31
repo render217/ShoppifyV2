@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 let cartProducts = [
   {
     categoryName: "Fruit and Vegetables",
@@ -71,8 +72,8 @@ let cartProducts = [
   },
 ];
 
-const total = cartProducts.reduce((acc, curr) => {
-  return acc + curr.products.reduce((ac, cur) => cur.quantity + ac, 0);
-}, 0);
+// const total = cartProducts.reduce((acc, curr) => {
+//   return acc + curr.products.reduce((ac, cur) => cur.quantity + ac, 0);
+// }, 0);
 
-console.log(total);
+// console.log(total);

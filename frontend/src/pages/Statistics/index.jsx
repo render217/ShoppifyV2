@@ -45,7 +45,7 @@ export default function Statistics() {
           />
         </div>
       </div>
-      <div className="max-w-[700px]">
+      <div className="">
         <SummaryChart />
       </div>
     </section>
