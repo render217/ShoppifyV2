@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getCurrentUser } from "../lib/api";
 import Cookies from "js-cookie";
 import FullSpinner from "../components/Spinner/FullSpinner";
@@ -20,6 +21,8 @@ const AuthContext = createContext({
 });
 
 export default function AuthProvider({ children }) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [user, setUser] = useState(INITIAL_USER);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -72,7 +75,10 @@ export default function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    checkAuthUser();
+    let isAuth = checkAuthUser();
+    if (isAuth) {
+      navigate({ pathname: location.pathname || "/" });
+    }
   }, []);
 
   return (
